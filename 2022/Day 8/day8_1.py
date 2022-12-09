@@ -25,20 +25,20 @@ width = len(grid[0])
 height = len(grid)
 
 # Count inside edges
-for y in range(height):
-    for x in range(width):
+for i in range(height):
+    for j in range(width):
         # This is to remove the effect of double increment "Count edges"
-        if y == 0 or x == 0 or y == height-1 or x == width-1:
+        if i == 0 or j == 0 or i == height-1 or j == width-1:
             continue
         else:
-            row = grid[y]
-            col = [yeet[x] for yeet in grid]
-            current_tree = grid[y][x]
+            row = grid[i]
+            col = [x[j] for x in grid]
+            current_tree = grid[i][j]
             
-            top = col[:y]
-            bottom = col[y+1:]
-            left = row[:x]
-            right = row[x+1:]
+            top = col[:i]
+            bottom = col[i+1:]
+            left = row[:j]
+            right = row[j+1:]
 
             top = get_max(top)
             bottom = get_max(bottom)

@@ -1,51 +1,45 @@
 tree_heights = open('input').read().split('\n')
 
 grid = []
-visible_trees = 0
+scenic_score = 0
 
-def get_max(list):
-    maximum = 0
-    for item in list:
-        if item > maximum:
-            maximum = item
-    return maximum
+def scenic(direction, tree):
+    count = 0
+    for ele in direction:
+        if tree > ele:
+            count += 1
+        elif tree == ele or tree < ele:
+            count += 1
+            break
+    return count 
 
 for tree in tree_heights:
     grid.append([int(x) for x in tree])
-
-# Count edges
-for i in range(len(grid)):
-    if i == 0 or i == len(grid)-1:
-        for tree in grid[i]:
-            visible_trees += 1
-    else:
-        visible_trees += 2
 
 width = len(grid[0])
 height = len(grid)
 
 # Count inside edges
-for y in range(height):
-    for x in range(width):
-        # This is to remove the effect of double increment "Count edges"
-        if y == 0 or x == 0 or y == height-1 or x == width-1:
-            continue
-        else:
-            row = grid[y]
-            col = [yeet[x] for yeet in grid]
-            current_tree = grid[y][x]
+for i in range(height):
+    for j in range(width):
+        row = grid[i]
+        col = [x[j] for x in grid]
+        current_tree = grid[i][j]
             
-            top = col[:y]
-            bottom = col[y+1:]
-            left = row[:x]
-            right = row[x+1:]
+        top = col[:i] # Reverse it
+        bottom = col[i+1:]
+        left = row[:j][::-1] # Reverse it
+        right = row[j+1:]
 
-            top = get_max(top)
-            bottom = get_max(bottom)
-            left = get_max(left)
-            right = get_max(right)
+        top = scenic(top, current_tree)
+        bottom = scenic(bottom, current_tree)
+        left = scenic(left, current_tree)
+        right = scenic(right, current_tree)
 
-            if top < current_tree or bottom < current_tree or left < current_tree or right < current_tree:
-                visible_trees += 1
+        print(top,bottom,left,right)
 
-print(visible_trees)
+        new_scenic_score = top*bottom*left*right
+        if new_scenic_score > scenic_score:
+            scenic_score = new_scenic_score
+
+print(scenic_score)
