@@ -26,7 +26,7 @@ for i in range(height):
         col = [x[j] for x in grid]
         current_tree = grid[i][j]
             
-        top = col[:i] # Reverse it
+        top = col[:i][::-1] # Reverse it
         bottom = col[i+1:]
         left = row[:j][::-1] # Reverse it
         right = row[j+1:]
@@ -35,8 +35,6 @@ for i in range(height):
         bottom = scenic(bottom, current_tree)
         left = scenic(left, current_tree)
         right = scenic(right, current_tree)
-
-        print(top,bottom,left,right)
 
         new_scenic_score = top*bottom*left*right
         if new_scenic_score > scenic_score:
