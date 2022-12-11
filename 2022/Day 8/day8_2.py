@@ -27,7 +27,7 @@ height = len(grid)
 # Count inside edges
 for y in range(height):
     for x in range(width):
-        # This is to remove the effect of double increment "Count edges"
+        # This is to remove the effect of double increment "Count edges", wacky conditions needed, not working otherwise
         if y == 0 or x == 0 or y == height-1 or x == width-1:
             continue
         else:
