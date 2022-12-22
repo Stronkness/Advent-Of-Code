@@ -21,3 +21,4 @@ for x,y,z in cubes:
         sum += 1
 
 print(sum)
+# This code is a bit embarassing :P
