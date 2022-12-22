@@ -1,0 +1,32 @@
+import re
+
+file = open('testinput', 'r')
+data = file.read()
+
+file.close()
+
+monkeys = {}
+
+for line in data.splitlines():
+    name, value = map(str.strip, line.split(':'))
+    monkeys[name] = value if value[0].isdigit() else value.split()
+
+print(monkeys)
+
+def unwind(name):
+    print(name)
+    monkey = monkeys[name]
+    if isinstance(monkey, list):
+        expr = unwind(monkey[0]), monkey[1], unwind(monkey[2])
+        return "({0} {1} {2})".format(*expr)
+    return monkey
+
+#print(int(eval(unwind('root'))))
+
+from sympy.solvers import solve
+
+monkeys['root'][1] = '-' # Will sove for expression equals 0
+monkeys['humn'] = 'x'
+
+print(monkeys)
+print(solve(unwind('root')))
