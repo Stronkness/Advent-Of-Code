@@ -2,7 +2,7 @@ import ast
 import functools
 
 def cmp(left, right):
-    # Pre-condition to see if empty lists exist in the input, makes code faster
+    # Pre-condition to see if empty lists exist in the input, makes code faster, hopefully
     if type(left) != int and type(right) != int:
         if len(left) == 0 and len(right) > 0:
             return -1

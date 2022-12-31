@@ -4,7 +4,7 @@ cycle = 0
 
 instructions = open('input').read().split('\n')
 
-for i, execution in enumerate(instructions, 1):
+for _, execution in enumerate(instructions, 1):
     if execution == 'noop':
         cycle += 1
         if cycle % 40 == 20: # Thresholds for signal_strength

@@ -22,7 +22,7 @@ for ten in range(10):
     for i in range(len(encrypted)):
         if i == zero_index:
             continue
-        idx = -1
+        idx = 0
         for j, (a,b) in enumerate(encrypted):
             if b == i:
                 idx = j # index found for the next number to be moved

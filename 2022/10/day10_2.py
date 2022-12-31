@@ -5,7 +5,7 @@ X_progress = [X]
 
 instructions = open('input').read().split('\n')
 
-for i, execution in enumerate(instructions, 1):
+for _, execution in enumerate(instructions, 1):
     if execution == 'noop':
         X_progress.append(X)
 

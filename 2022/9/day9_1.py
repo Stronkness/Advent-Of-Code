@@ -47,7 +47,7 @@ visited = set() # Keeps unique lpositions saved
 for move in instructions:
     direction, times = move.split(' ')
 
-    for i in range(int(times)):
+    for _ in range(int(times)):
         head = move_head(head, direction)
         tail = tuple(move_tail(head, tail))
         visited.add(tail)
