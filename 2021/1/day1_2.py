@@ -1,9 +1,9 @@
 sweeps = open('input').read().split('\n')
 
 increases = 0
-for i,sonar in enumerate(sweeps):
+for i in range(len(sweeps)):
     current = sum((int(x) for x in sweeps[i:i+3]))
-    
+
     if i == 0:
         previous = current
         continue
