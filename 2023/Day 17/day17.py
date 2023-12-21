@@ -15,6 +15,7 @@ def find_minimum_heat_loss(grid, min_steps, max_steps, start, end):
         )
 
         if current_position == end:
+            print(step_count)
             return total_heat_loss
 
         # Determine allowed directions to move giving their idxs of the directions array, 90 degree turn
@@ -37,7 +38,7 @@ def find_minimum_heat_loss(grid, min_steps, max_steps, start, end):
                     a + b * step_count for a, b in zip(current_position, directions[next_direction]))
 
                 # Check if the next position is within the grid boundaries
-                if 0 <= next_position[0] < end[0] + 1 and 0 <= next_position[1] < end[1] + 1:
+                if 0 <= next_position[0] <= end[0] and 0 <= next_position[1] <= end[1]:
                     next_heat_loss += int(grid[next_position[0]]
                                           [next_position[1]])
 
