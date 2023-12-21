@@ -15,7 +15,6 @@ def find_minimum_heat_loss(grid, min_steps, max_steps, start, end):
         )
 
         if current_position == end:
-            print(step_count)
             return total_heat_loss
 
         # Determine allowed directions to move giving their idxs of the directions array, 90 degree turn
@@ -68,5 +67,5 @@ print("Part 1 Minimum Heat Loss:", min_heat_loss_part1)
 
 # Part 2
 min_heat_loss_part2 = find_minimum_heat_loss(
-    grid_map, 4, 10, start_position, end_position) - 2  # Subtract 2 because off by 2 error
+    grid_map, 4, 10, start_position, end_position)
 print("Part 2 Minimum Heat Loss:", min_heat_loss_part2)
