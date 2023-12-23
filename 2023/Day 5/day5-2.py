@@ -1,4 +1,6 @@
-file = open("input").read().strip().split("\n\n")
+from typing import List
+
+file = open("test").read().strip().split("\n\n")
 
 seeds_str = file[0].replace("seeds: ", "").split(" ")
 seeds = [int(x) for x in seeds_str]
@@ -9,26 +11,37 @@ for i in range(0, len(seeds), 2):
     ranges.append((start, end))
 
 # Map format: [[destination_range_start, source_range_start, range_length], ...]
-maps = [
-    [[int(y) for y in x.split(" ")] for x in file[i].splitlines()[1::]]
-    for i in range(1, 8)
-][::-1]  # Reverse the map, as go from the end point seed towards the beginning is easier than going from start to end, lower time complexity
+# Reverse the map, as go from the end point seed towards the beginning is easier than going from start to end, lower time complexity
+maps = []
+for i in range(7, 0, -1):
+    inner_list = []
+    lines = file[i].splitlines()[1::]
+    for line in lines:
+        start, end, range_length = [int(x) for x in line.split(" ")]
+        inner_list.append((end, start, range_length))
+    maps.append(inner_list)
+
 
 location = 0
 while True:
     seed = location
-    for m in maps:
-        for destination_range_start, source_range_start, range_length in m:
+    for map in maps:
+        for destination_range_start, source_range_start, range_length in map:
             interval = range(source_range_start,
                              source_range_start + range_length)
             if seed in interval:
                 seed = destination_range_start + (seed - source_range_start)
                 break
 
+    done = False
     for start, end in ranges:
         if end > seed and seed >= start:
             print(location)
+            done = True
             break
+
+    if done:
+        break
 
     location += 1
 
