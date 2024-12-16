@@ -6,7 +6,7 @@ It is a bit chaotic ...
 from collections import defaultdict
 
 DIRECTIONS = [(1, 0), (-1, 0), (0, 1), (0, -1)]
-grid = [list(line) for line in open("small.in").read().splitlines()]
+grid = [list(line) for line in open("large.in").read().splitlines()]
 rows, cols = len(grid), len(grid[0])
 visited = {}
 result = 0
