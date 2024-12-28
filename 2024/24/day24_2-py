@@ -1,0 +1,52 @@
+import operator
+import re
+
+def filter_wire_names(gates):
+    def is_valid_wire(output, input1, operation, input2):
+        if output.startswith("z") and operation != "XOR" and output != "z45":
+            return True
+
+        if operation == "XOR" and all(not wire.startswith(("x", "y", "z")) for wire in (input1, input2, output)):
+            return True
+
+        if (
+            operation == "AND"
+            and "x00" not in (input1, input2)
+            and any(
+                output in (other_input1, other_input2) and other_operation != "OR"
+                for other_input1, other_operation, other_input2 in gates.values()
+            )
+        ):
+            return True
+
+        if (
+            operation == "XOR"
+            and any(
+                output in (other_input1, other_input2) and other_operation == "OR"
+                for other_input1, other_operation, other_input2 in gates.values()
+            )
+        ):
+            return True
+
+        return False
+
+    filtered_wires = [
+        output
+        for output, (input1, operation, input2) in gates.items()
+        if is_valid_wire(output, input1, operation, input2)
+    ]
+    return ",".join(sorted(filtered_wires))
+
+
+input = open("large.in").read().split("\n\n")
+
+wire_matches = re.findall(r"(\w\d\d): (0|1)", input[0])
+wires = {wire: int(state) for wire, state in wire_matches}
+gate_matches = re.findall(r"([\w\d]{3}) (AND|OR|XOR) ([\w\d]{3}) -> ([\w\d]{3})", input[1])
+gates = {
+    output: (input1, operation, input2) for input1, operation, input2, output in gate_matches
+}
+operations = {"AND": operator.and_, "OR": operator.or_, "XOR": operator.xor}
+valid_wire_names = filter_wire_names(gates)
+
+print(valid_wire_names)
