@@ -10,10 +10,12 @@ for rotation in rotations:
     rem = num % 100
 
     if turn == 'L':
-        if start - rem < 0:
+        if start == 0:
+            start = 100
+        if start - rem <= 0:
             answer += 1
         start = (start - rem) % 100
-    else:  # R
+    else: # R
         if start + rem >= 100:
             answer += 1
         start = (start + rem) % 100
